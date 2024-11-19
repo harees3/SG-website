@@ -1,0 +1,61 @@
+/* Base styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: black;
+  color: yellow;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.roboto-regular {
+  font-size: 2rem;
+  margin: 20px;
+}
+
+h1 span {
+  color: aqua;
+}
+
+/* Video container */
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px;
+  padding: 0 10px;
+}
+
+iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+/* Text container */
+.text-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  margin: 20px;
+  padding: 0 10px;
+}
+
+.text-container p {
+  background-color: yellow;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+/* Media queries for smaller devices */
+@media (max-width: 600px) {
+  .roboto-regular {
+    font-size: 1.5rem;
+  }
+
+  iframe {
+    aspect-ratio: 4 / 3;
+  }
+}
