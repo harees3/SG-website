@@ -30,7 +30,7 @@ body {
   height: 100%;
   pointer-events: none;
   background-image: url("https://i.imgur.com/DPp1BYk.png");
-  animation: snow 10s linear infinite;
+  animation: rgb(207, 197, 15) 10s linear infinite;
   z-index: 1000;
 }
 
