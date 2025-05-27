@@ -1,3 +1,21 @@
+/* CSS Variables */
+:root {
+  --primary-color: #ff9800; /* Orange */
+  --secondary-color: #ff5722; /* Deep Orange */
+  --accent-color: #00e5ff;   /* Cyan Accent */
+  --background-dark: #121212;
+  --surface-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --text-dark: #000000;
+  --font-primary: 'Roboto', sans-serif;
+  --font-headings: 'Orbitron', sans-serif;
+  --nav-height: 70px;
+  --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --border-radius: 8px;
+  --transition-speed: 0.3s ease;
+}
+
 /* Reset */
 * {
   margin: 0;
@@ -5,128 +23,411 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-primary);
   line-height: 1.6;
-  color: #fff;
-  background: #111;
+  color: var(--text-color);
+  background-color: var(--background-dark);
   overflow-x: hidden;
+  padding-top: var(--nav-height); /* Prevent content from hiding behind fixed navbar */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Navbar */
-nav {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ff9800;
-  padding: 20px;
+  background-color: var(--surface-color);
+  padding: 0 20px; /* Adjusted padding */
+  height: var(--nav-height);
+  position: fixed; /* Fixed Navbar */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo {
+  font-family: var(--font-headings);
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  font-weight: 700;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
 .nav-links a {
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
-  transition: 0.3s;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 10px 5px;
+  transition: color var(--transition-speed), border-bottom-color var(--transition-speed);
+  position: relative; /* For underline effect */
 }
 
-.nav-links a:hover {
-  color: #000;
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  transition: width var(--transition-speed);
+}
+
+.nav-links a:hover,
+.nav-links a.active { /* Add .active class via JS for current page */
+  color: var(--primary-color);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+
+.menu-icon {
+  display: none; /* Hidden by default, shown on mobile */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px; /* Space between bars */
+}
+
+.menu-icon .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color);
+  border-radius: 5px;
+  transition: all var(--transition-speed);
 }
 
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 100px 20px;
-  background: #333;
+  padding: 80px 20px 60px; /* Adjusted padding */
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('your-hero-image.jpg') no-repeat center center/cover; /* Optional: Add a background image */
+  background-color: var(--surface-color); /* Fallback if image doesn't load */
+  min-height: calc(100vh - var(--nav-height)); /* Full viewport height minus navbar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 700px;
 }
 
 .hero h1 {
-  font-size: 3rem;
-  color: #ff5722;
+  font-family: var(--font-headings);
+  font-size: 2.8rem;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  line-height: 1.2;
 }
 
-.hero span {
-  color: #00e5ff;
+.hero h1 span {
+  color: var(--accent-color);
 }
 
-.hero .btn {
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: var(--text-color-muted, #ccc);
+}
+
+.btn {
   display: inline-block;
-  padding: 10px 30px;
-  background: #ff9900;
-  color: black;
+  padding: 12px 35px;
   text-decoration: none;
-  border-radius: 5px;
-  transition: 0.3s;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.hero .btn:hover {
-  background: #ff3900;
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-dark);
 }
 
-/* Video Gallery */
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+/* Video Gallery Section */
+.video-section {
+  padding: 60px 0;
+  background-color: var(--background-dark);
+}
+
+.video-section h2 {
+  text-align: center;
+  font-family: var(--font-headings);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
 .video-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: 25px;
 }
 
 .video-card {
-  background: #222;
-  border-radius: 10px;
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  transition: 0.3s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: var(--card-shadow);
+  display: flex; /* For better control over content */
+  flex-direction: column;
 }
 
 .video-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
+  box-shadow: var(--card-hover-shadow);
+}
+
+.video-thumbnail {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
 }
 
 .video-card iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
   border: none;
 }
 
-.video-card p {
-  padding: 10px;
-  background: #ff9900;
-  color: #000;
-  text-align: center;
-  font-weight: bold;
+.video-info {
+  padding: 15px;
+  background: var(--surface-color); /* Match card or slightly different */
+  flex-grow: 1; /* Allows this to take remaining space */
 }
+
+.video-info p {
+  color: var(--text-color);
+  text-align: left; /* Or center, if preferred */
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 
 /* Footer */
 footer {
   text-align: center;
-  padding: 20px;
-  background: #222;
+  padding: 40px 20px;
+  background: var(--surface-color);
+  border-top: 3px solid var(--primary-color);
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+  color: var(--secondary-color);
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: var(--text-color-muted, #aaa);
 }
 
 /* Back to top button */
 #backToTop {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 15px;
-  background: #ff9900;
-  color: black;
+  bottom: 25px;
+  right: 25px;
+  padding: 12px 15px;
+  background: var(--primary-color);
+  color: var(--text-dark);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  display: none;
+  display: none; /* Hidden by default */
+  z-index: 999;
+  font-size: 1.2rem; /* Make arrow a bit bigger */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+#backToTop:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
 }
 
 
-.cont{
+/* Responsive Design - Media Queries */
+
+/* Tablets and smaller desktops */
+@media (max-width: 992px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .video-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
 
 
-  color: white;
+/* Mobile devices */
+@media (max-width: 768px) {
+  body {
+    padding-top: 0; /* Remove padding when navbar is not fixed or behaves differently */
+  }
 
+  .navbar {
+    /* Keep navbar fixed or change to static, depending on preference */
+    /* For this example, we'll make nav-links part of a toggle menu */
+    padding: 0 15px; /* Slightly less padding */
+    height: 60px; /* Smaller navbar on mobile */
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    display: none; /* Hide links by default */
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Position below navbar */
+    left: 0;
+    width: 100%;
+    background-color: var(--surface-color);
+    padding: 15px 0;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    border-top: 1px solid var(--primary-color);
+  }
+
+  .nav-links.active { /* Class to show menu */
+    display: flex;
+  }
+
+  .nav-links li {
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px 20px;
+    width: 100%;
+  }
+   .nav-links a::after { /* Mobile: remove underline effect or simplify */
+      display: none;
+   }
+
+  .menu-icon {
+    display: flex; /* Show hamburger icon */
+  }
+
+  /* Hamburger animation */
+  .menu-icon.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .menu-icon.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-icon.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+
+  .hero {
+    padding: 60px 15px 40px;
+    min-height: calc(90vh - 60px); /* Adjust height if navbar is smaller */
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+
+  .video-section {
+    padding: 40px 0;
+  }
+  .video-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .video-gallery {
+    grid-template-columns: 1fr; /* Single column on small screens */
+    gap: 20px;
+  }
+  .video-card {
+    margin: 0 10px; /* Add some horizontal margin if needed */
+  }
+
+  footer {
+    padding: 30px 15px;
+  }
+  #backToTop {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 13px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.3rem;
+    }
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    .hero p {
+        font-size: 0.9rem;
+    }
 }
